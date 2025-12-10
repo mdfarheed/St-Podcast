@@ -23,7 +23,7 @@ export default function HeroSection() {
           Video Podcast
         </h1>
 
-        <p className="text-gray-300 mb-8 text-lg">
+        <p className="text-gray-300 mb-8 text-lg md:text-[22px]">
           We produce studio-quality video podcasts for companies that want to
           build thought leadership, connect deeply with their audience, and
           dominate social media with premium content.
