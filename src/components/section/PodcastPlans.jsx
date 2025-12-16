@@ -100,12 +100,12 @@ const PodcastPlans = () => {
         {plans.map((plan, i) => (
           <motion.div
             key={plan.id}
-            className={`relative rounded-3xl bg-slate-900/70  
+            className={`relative rounded-3xl 
               backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] 
               flex flex-col overflow-hidden  ${
                     plan.id === "growth"
-                      ? " border border-yellow-700"
-                      : "border border-white/10"
+                      ? " border border-yellow-700 bg-[#F6339A]"
+                      : "border border-white/10 bg-slate-900/70"
                   }`}
             variants={cardVariants}
             initial="hidden"

@@ -41,7 +41,7 @@ const ContactSection = () => {
                 <input
                   type="text"
                   name="firstName"
-                  className="w-full bg-gray-100 rounded-lg px-4 py-3 outline-none"
+                  className="w-full bg-gray-100 rounded-lg px-4 py-3 "
                   placeholder="First Name"
                 />
               </div>
@@ -53,7 +53,7 @@ const ContactSection = () => {
                 <input
                   type="text"
                   name="lastName"
-                  className="w-full bg-gray-100 rounded-lg px-4 py-3 outline-none"
+                  className="w-full bg-gray-100 rounded-lg px-4 py-3"
                   placeholder="Last Name"
                 />
               </div>
@@ -68,7 +68,7 @@ const ContactSection = () => {
                 <input
                   type="text"
                   name="business"
-                  className="w-full bg-gray-100 rounded-lg px-4 py-3 outline-none"
+                  className="w-full bg-gray-100 rounded-lg px-4 py-3"
                   placeholder="Business"
                 />
               </div>
@@ -80,7 +80,7 @@ const ContactSection = () => {
                 <input
                   type="email"
                   name="email"
-                  className="w-full bg-gray-100 rounded-lg px-4 py-3 outline-none"
+                  className="w-full bg-gray-100 rounded-lg px-4 py-3"
                   placeholder="Email"
                 />
               </div>
@@ -94,7 +94,7 @@ const ContactSection = () => {
               <textarea
                 name="message"
                 rows={4}
-                className="w-full bg-gray-100 rounded-lg px-4 py-3 outline-none resize-none"
+                className="w-full bg-gray-100 rounded-lg px-4 py-3 resize-none"
                 placeholder="Message"
               ></textarea>
             </div>
