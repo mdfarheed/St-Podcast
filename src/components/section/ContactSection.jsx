@@ -9,6 +9,37 @@ const fadeUp = {
 };
 
 const ContactSection = () => {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    const promise = fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }).then((res) => {
+      if (!res.ok) throw new Error("Failed");
+      return res.json();
+    });
+
+    toast.promise(promise, {
+      loading: "Sending message...",
+      success: "Message sent successfully!",
+      error: "Something went wrong. Try again!",
+    });
+
+    try {
+      await promise;
+      e.target.reset();
+    } catch (err) {}
+    setLoading(false);
+  };
+
   return (
     <section className="relative w-full py-20 px-5 md:px-16 overflow-hidden bg-white">
       {/* BG IMAGE */}
@@ -31,7 +62,7 @@ const ContactSection = () => {
           viewport={{ once: true }}
           className="bg-white/90 p-8 rounded-2xl shadow-xl backdrop-blur-md"
         >
-          <form className="grid grid-cols-1 gap-5">
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-5">
             {/* ROW 1 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
@@ -101,13 +132,12 @@ const ContactSection = () => {
 
             <button
               type="submit"
-              className="
-                mt-3 px-6 py-4 rounded-xl text-white font-medium 
-                bg-linear-to-r from-pink-500 to-indigo-500
-                shadow-lg hover:opacity-90 transition
-              "
+              disabled={loading}
+              className="mt-3 px-6 py-4 rounded-xl text-white font-medium 
+  bg-linear-to-r from-pink-500 to-indigo-500
+  shadow-lg hover:opacity-90 transition disabled:opacity-60"
             >
-              Book a Strategy Call
+              {loading ? "Sending..." : "Book a Strategy Call"}
             </button>
           </form>
         </motion.div>

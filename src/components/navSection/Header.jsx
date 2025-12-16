@@ -29,7 +29,7 @@ export default function Header() {
             About Us
           </Link>
           <Link href="#" className="hover:text-purple-400 transition">
-            Process
+            Prices
           </Link>
           <Link href="#" className="hover:text-purple-400 transition">
             Contact Us
