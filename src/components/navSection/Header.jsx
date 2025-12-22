@@ -1,12 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import {
-  FaHome,
-  FaInfoCircle,
-  FaTags,
-  FaPhoneAlt,
-} from "react-icons/fa";
+import { FaHome, FaInfoCircle, FaTags, FaPhoneAlt } from "react-icons/fa";
 
 export default function Header() {
   return (
@@ -26,23 +21,21 @@ export default function Header() {
             backdrop-blur-md bg-black/40
           "
         >
-          <h1 className="text-white text-2xl font-semibold">
-            CORP Podcast
-          </h1>
+          <h1 className="text-white text-2xl font-semibold">CORP Podcast</h1>
 
           <nav className="md:flex gap-10 text-white text-sm hidden">
             <Link href="/" className="hover:text-purple-400 transition">
               Home
             </Link>
-            <Link href="#" className="hover:text-purple-400 transition">
+            <Link href="#about" className="hover:text-purple-400 transition">
               About Us
             </Link>
-            <Link href="#" className="hover:text-purple-400 transition">
+            <Link href="#price" className="hover:text-purple-400 transition">
               Prices
             </Link>
-            <Link href="#" className="hover:text-purple-400 transition">
+            <a href="#contact" className="hover:text-purple-400 transition">
               Contact Us
-            </Link>
+            </a>
           </nav>
         </div>
       </motion.header>

@@ -50,7 +50,7 @@ export default function HeroSection() {
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7 }}
-        className="absolute right-0 top-46 w-[850px] opacity-60 hidden"
+        className="absolute right-0 top-46 w-[850px] opacity-60 hidden md:block"
       >
         <img src="/heroImage.png" alt="Podcast" className="" />
       </motion.div>

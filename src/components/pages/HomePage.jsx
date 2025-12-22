@@ -16,13 +16,20 @@ const HomePage = () => {
       <div className="max-w-[1450px] mx-auto">
         <Header />
         <HeroSection />
-        <GridSection/>
-        <AboutSection />
+        <GridSection />
+        <div id="about">
+          <AboutSection />
+        </div>
         <ServiceSection />
-        <WorkingImageGrid/>
-        <WorkProcess/>
-        <PodcastPlans/>
-        <ContactSection/>
+        <WorkingImageGrid />
+        <WorkProcess />
+        <div id="price">
+          <PodcastPlans />
+        </div>
+        <div id="contact">
+          <ContactSection />
+        </div>
+
         <Footer />
       </div>
     </>

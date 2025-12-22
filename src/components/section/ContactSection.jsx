@@ -42,7 +42,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="relative w-full py-20 px-5 md:px-16 overflow-hidden bg-white">
+    <section className=" relative w-full py-20 px-5 md:px-16 overflow-hidden bg-white">
       {/* BG IMAGE */}
       <div className="absolute inset-0">
         <Image
