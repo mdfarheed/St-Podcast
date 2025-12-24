@@ -6,20 +6,19 @@ import { FaTools, FaTachometerAlt, FaClipboardList } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { FiLogOut } from "react-icons/fi";
 
-
 export default function Sidebar({ setView, currentView }) {
   const [isOpen, setIsOpen] = useState(false);
-const router = useRouter();
+  const router = useRouter();
   const handleToggle = () => setIsOpen(!isOpen);
   const handleSelect = (view) => {
     setView(view);
     setIsOpen(false); // close sidebar on mobile after selecting
   };
 
-  const handleLogout= ()=>{
-    localStorage.removeItem("rgsLoginToken");
+  const handleLogout = () => {
+    localStorage.removeItem("corpToken");
     router.push("/");
-  }
+  };
 
   return (
     <>
@@ -58,16 +57,15 @@ const router = useRouter();
               currentView === "enquiry" ? "bg-blue-700" : ""
             }`}
           >
-            <FaClipboardList /> Enquiry Data
+            <FaClipboardList /> Contact Data
           </button>
 
-<button
-  onClick={handleLogout}
-  className="flex items-center gap-2 w-full text-left px-3 py-2 rounded hover:bg-blue-400 transition"
->
-  <FiLogOut /> Logout
-</button>
-
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 w-full text-left px-3 py-2 rounded hover:bg-blue-400 transition"
+          >
+            <FiLogOut /> Logout
+          </button>
         </nav>
       </aside>
 

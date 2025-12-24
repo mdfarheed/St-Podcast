@@ -23,7 +23,7 @@ export default function AdminHome() {
 
   const fetchEnquiry = async () => {
     try {
-      const token = localStorage.getItem("rgsLoginToken");
+      const token = localStorage.getItem("corpToken");
 
       const res = await fetch("/api/enquiry", {
         method: "GET",
