@@ -18,7 +18,7 @@ const EnquiryModal = ({ isOpen, onClose, enquiry }) => {
 
         {/* Heading */}
         <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800">
-          📋 Enquiry Details
+          📋 Contact Details
         </h2>
 
         {/* Table Layout */}
@@ -26,33 +26,25 @@ const EnquiryModal = ({ isOpen, onClose, enquiry }) => {
           <table className="table-auto w-full text-sm text-left text-gray-700 border border-gray-200 rounded-md">
             <tbody>
               <tr className="border-b">
-                <td className="font-semibold p-2 w-1/3">Child Name:</td>
-                <td className="p-2">{enquiry.childName}</td>
+                <td className="font-semibold p-2 w-1/3">Full Name:</td>
+                <td className="p-2">
+                  {enquiry.firstName} {enquiry.lastName}
+                </td>
               </tr>
-              <tr className="border-b">
-                <td className="font-semibold p-2">Parent Name:</td>
-                <td className="p-2">{enquiry.parentName}</td>
-              </tr>
+
               <tr className="border-b">
                 <td className="font-semibold p-2">Email:</td>
                 <td className="p-2">{enquiry.email}</td>
               </tr>
               <tr className="border-b">
-                <td className="font-semibold p-2">Mobile:</td>
-                <td className="p-2">{enquiry.mobile}</td>
+                <td className="font-semibold p-2">Business:</td>
+                <td className="p-2">{enquiry.business}</td>
               </tr>
               <tr className="border-b">
-                <td className="font-semibold p-2">School:</td>
-                <td className="p-2">{enquiry.school}</td>
+                <td className="font-semibold p-2">Message:</td>
+                <td className="p-2">{enquiry.message}</td>
               </tr>
-              <tr className="border-b">
-                <td className="font-semibold p-2">Grade:</td>
-                <td className="p-2">{enquiry.grade}</td>
-              </tr>
-              <tr className="border-b">
-                <td className="font-semibold p-2">Year:</td>
-                <td className="p-2">{enquiry.year}</td>
-              </tr>
+
               <tr>
                 <td className="font-semibold p-2">Enquiry Date:</td>
                 <td className="p-2">

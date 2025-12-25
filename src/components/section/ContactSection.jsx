@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 const fadeUp = {
   initial: { opacity: 0, y: 40 },
@@ -18,6 +19,7 @@ const ContactSection = () => {
 
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
+    console.log(data);
 
     const promise = fetch("/api/contact", {
       method: "POST",
@@ -201,6 +203,7 @@ const ContactSection = () => {
           </div>
         </motion.div>
       </div>
+      <ToastContainer />
     </section>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 import { HiDocumentText } from "react-icons/hi";
 import { useEffect, useState } from "react";
-import { FaEye, FaCalendarAlt, FaUser, FaPhoneAlt } from "react-icons/fa";
+import { FaEye, FaCalendarAlt, FaUser, FaEnvelope } from "react-icons/fa";
 import EnquiryModal from "./EnquiryModal";
 export default function EnquiryData() {
   const [enquiryList, setEnquiryList] = useState([]);
@@ -15,9 +15,9 @@ export default function EnquiryData() {
 
   const fetchEnquiry = async () => {
     try {
-      const token = localStorage.getItem("rgsLoginToken");
+      const token = localStorage.getItem("corpToken");
 
-      const res = await fetch("/api/enquiry", {
+      const res = await fetch("/api/contact", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ export default function EnquiryData() {
     <div className="max-w-6xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold mb-8 text-center flex justify-center items-center gap-2">
         <HiDocumentText className=" text-4xl" />
-        Enquiries
+        Contacts
       </h1>
 
       <div className="overflow-x-auto">
@@ -61,12 +61,12 @@ export default function EnquiryData() {
               </th>
               <th className="p-4 text-left">
                 <div className="flex items-center gap-2">
-                  <FaUser /> Child Name
+                  <FaUser /> Full Name
                 </div>
               </th>
               <th className="p-4 text-left">
                 <div className="flex items-center gap-2">
-                  <FaPhoneAlt /> Mobile
+                  <FaEnvelope /> Email
                 </div>
               </th>
               <th className="p-4 text-center">
@@ -88,9 +88,9 @@ export default function EnquiryData() {
                     {new Date(item.createdAt).toLocaleDateString()}
                   </td>
                   <td className="p-4 font-medium text-gray-800">
-                    {item.childName}
+                    {item.firstName} {item.lastName}
                   </td>
-                  <td className="p-4">{item.mobile}</td>
+                  <td className="p-4">{item.email}</td>
                   <td className="p-4 text-center">
                     <button
                       onClick={() => handleView(item)}

@@ -5,7 +5,7 @@ import {
   FaEye,
   FaCalendarAlt,
   FaUser,
-  FaPhoneAlt,
+  FaEnvelope ,
   FaClock,
 } from "react-icons/fa";
 import EnquiryModal from "./EnquiryModal";
@@ -25,7 +25,7 @@ export default function AdminHome() {
     try {
       const token = localStorage.getItem("corpToken");
 
-      const res = await fetch("/api/enquiry", {
+      const res = await fetch("/api/contact", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +40,6 @@ export default function AdminHome() {
       }
 
       const data = await res.json();
-      
 
       if (!Array.isArray(data)) {
         throw new TypeError("Expected data to be an array");
@@ -71,7 +70,7 @@ export default function AdminHome() {
       <div className="my-10 ">
         <div className="bg-blue-200 w-70 py-10 flex flex-col justify-center items-center rounded-md gap-4">
           <h2 className="text-4xl font-bold">{total}</h2>
-          <h2 className="text-2xl font-bold">Total Enquiries</h2>
+          <h2 className="text-2xl font-bold">Total Contacts</h2>
         </div>
       </div>
       <div className="my-10">
@@ -79,9 +78,9 @@ export default function AdminHome() {
           <div className="bg-[#083D65] text-white px-6 py-4 flex items-center justify-between">
             <h2 className="text-xl font-bold flex items-center gap-2">
               <FaClock className="text-yellow-300" />
-              Recent Enquiries
+              Recent Contacts
             </h2>
-            <span className="text-sm italic text-blue-100">Last 5 Entries</span>
+            <span className="text-sm italic text-blue-100">Last 5 contact</span>
           </div>
 
           <div className="overflow-x-auto">
@@ -95,12 +94,12 @@ export default function AdminHome() {
                   </th>
                   <th className="p-4 text-left">
                     <div className="flex items-center gap-2 ">
-                      <FaUser /> Child Name
+                      <FaUser /> Full Name
                     </div>
                   </th>
                   <th className="p-4 text-left">
                     <div className="flex items-center gap-2 ">
-                      <FaPhoneAlt /> Mobile
+                      <FaEnvelope /> Email
                     </div>
                   </th>
                   <th className="p-4 ">Action</th>
@@ -116,8 +115,10 @@ export default function AdminHome() {
                     <td className="p-4">
                       {new Date(item.createdAt).toLocaleDateString()}
                     </td>
-                    <td className="p-4 font-medium">{item.childName}</td>
-                    <td className="p-4">{item.mobile}</td>
+                    <td className="p-4 font-medium">
+                      {item.firstName} {item.lastName}
+                    </td>
+                    <td className="p-4">{item.email}</td>
                     <td className="p-4 text-center">
                       <button
                         onClick={() => handleView(item)}
