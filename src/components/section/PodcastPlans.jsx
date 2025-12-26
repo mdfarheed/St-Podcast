@@ -7,7 +7,7 @@ const plans = [
   {
     id: "starter",
     name: "Starter Video Plan",
-    price: "₹75,000",
+    price: "75000",
     per: "per month",
     badge: "",
     bg: "from-slate-800 to-slate-900",
@@ -26,7 +26,7 @@ const plans = [
   {
     id: "growth",
     name: "Growth Video Plan",
-    price: "₹1,45,000",
+    price: "145000",
     per: "per month",
     badge: "Most Popular",
     bg: "from-violet-500/80 via-indigo-500/80 to-fuchsia-500/80",
@@ -46,7 +46,7 @@ const plans = [
   {
     id: "leadership",
     name: "Leadership Video Plan",
-    price: "₹2,50,000",
+    price: "250000",
     per: "per month",
     badge: "",
     bg: "from-slate-800 to-slate-900",

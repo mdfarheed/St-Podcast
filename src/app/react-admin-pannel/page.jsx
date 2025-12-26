@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Sidebar from '../../components/admin/Sidebar';
 import AdminHome from '../../components/admin/AdminHome';
 import EnquiryData from '../../components/admin/EnquiryData';
+import ServicePlanData from '../../components/admin/ServicePlanData';
 import { useRouter } from "next/navigation";
 export default function AdminPage() {
   const [currentView, setView] = useState('dashboard');
@@ -13,6 +14,8 @@ export default function AdminPage() {
     switch (currentView) {
       case 'enquiry':
         return <EnquiryData />;
+        case 'service':
+        return <ServicePlanData/>;
       case 'dashboard':
       default:
         return <AdminHome />;

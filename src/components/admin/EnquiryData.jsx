@@ -1,8 +1,15 @@
 "use client";
-import { HiDocumentText } from "react-icons/hi";
+
 import { useEffect, useState } from "react";
-import { FaEye, FaCalendarAlt, FaUser, FaEnvelope } from "react-icons/fa";
+import {
+  FaEye,
+  FaCalendarAlt,
+  FaUser,
+  FaEnvelope,
+} from "react-icons/fa";
+import { HiDocumentText } from "react-icons/hi";
 import EnquiryModal from "./EnquiryModal";
+
 export default function EnquiryData() {
   const [enquiryList, setEnquiryList] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -18,23 +25,15 @@ export default function EnquiryData() {
       const token = localStorage.getItem("corpToken");
 
       const res = await fetch("/api/contact", {
-        method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
       });
 
       const data = await res.json();
-
-      if (Array.isArray(data)) {
-        setEnquiryList(data);
-      } else {
-        console.warn("Unexpected response format", data);
-        setEnquiryList([]); // fallback to empty array
-      }
+      setEnquiryList(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error("Enquiry data fetching error", error);
+      console.error("Enquiry fetch error", error);
       setEnquiryList([]);
     }
   };
@@ -44,68 +43,83 @@ export default function EnquiryData() {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-8 text-center flex justify-center items-center gap-2">
-        <HiDocumentText className=" text-4xl" />
-        Contacts
-      </h1>
+    <div className="max-w-7xl mx-auto px-4 py-10">
+      
+      {/* Header */}
+      <div className="mb-8 flex items-center justify-between flex-wrap gap-4">
+        <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-2 text-slate-800">
+          <HiDocumentText className="text-indigo-600 text-3xl" />
+          Contact Enquiries
+        </h1>
+      </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-200 bg-white shadow-md rounded-lg overflow-hidden">
-          <thead className="bg-[#083D65] text-white md:text-sm text-xs uppercase">
+      {/* Table */}
+      <div className="overflow-x-auto rounded-2xl bg-white/80 backdrop-blur-xl shadow-xl border border-slate-200">
+        <table className="w-full text-sm">
+          <thead className="bg-linear-to-r from-indigo-600 to-blue-600 text-white">
             <tr>
-              <th className="p-4 text-left">
-                <div className="flex items-center gap-2 ">
-                  <FaCalendarAlt /> Enquiry Date
-                </div>
-              </th>
-              <th className="p-4 text-left">
+              <th className="px-5 py-4 text-left whitespace-nowrap">
                 <div className="flex items-center gap-2">
-                  <FaUser /> Full Name
+                  <FaCalendarAlt /> Date
                 </div>
               </th>
-              <th className="p-4 text-left">
+              <th className="px-5 py-4 text-left">
+                <div className="flex items-center gap-2">
+                  <FaUser /> Name
+                </div>
+              </th>
+              <th className="px-5 py-4 text-left">
                 <div className="flex items-center gap-2">
                   <FaEnvelope /> Email
                 </div>
               </th>
-              <th className="p-4 text-center">
-                <div className="flex items-center justify-center gap-2">
-                  Action
-                </div>
-              </th>
+              <th className="px-5 py-4 text-center">View</th>
             </tr>
           </thead>
 
           <tbody>
-            {Array.isArray(enquiryList) && enquiryList.length > 0 ? (
-              enquiryList.map((item) => (
+            {enquiryList.length > 0 ? (
+              enquiryList.map((item, index) => (
                 <tr
                   key={item._id}
-                  className="border-t border-gray-100 hover:bg-blue-50 transition text-xs md:text-sm"
+                  className={`border-b last:border-none transition ${
+                    index % 2 === 0
+                      ? "bg-white"
+                      : "bg-slate-50"
+                  } hover:bg-indigo-50`}
                 >
-                  <td className="p-4">
+                  <td className="px-5 py-4 text-slate-600">
                     {new Date(item.createdAt).toLocaleDateString()}
                   </td>
-                  <td className="p-4 font-medium text-gray-800">
+
+                  <td className="px-5 py-4 font-medium text-slate-800">
                     {item.firstName} {item.lastName}
                   </td>
-                  <td className="p-4">{item.email}</td>
-                  <td className="p-4 text-center">
+
+                  <td className="px-5 py-4 text-slate-600 break-all">
+                    {item.email}
+                  </td>
+
+                  <td className="px-5 py-4 text-center">
                     <button
                       onClick={() => handleView(item)}
-                      className="hover:text-blue-800 transition"
+                      className="inline-flex items-center justify-center w-9 h-9 rounded-full 
+                      bg-indigo-100 text-indigo-600 hover:bg-indigo-600 hover:text-white 
+                      transition shadow-sm"
                       title="View Details"
                     >
-                      <FaEye className="inline-block md:text-2xl text-sm" />
+                      <FaEye />
                     </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="4" className="p-4 text-center text-red-600">
-                  No enquiries found or unauthorized.
+                <td
+                  colSpan="4"
+                  className="px-6 py-10 text-center text-slate-500"
+                >
+                  No enquiries found.
                 </td>
               </tr>
             )}
@@ -113,7 +127,7 @@ export default function EnquiryData() {
         </table>
       </div>
 
-      {/* 📦 Modal for View */}
+      {/* Modal */}
       <EnquiryModal
         isOpen={showModal}
         onClose={() => setShowModal(false)}

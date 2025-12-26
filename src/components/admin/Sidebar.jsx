@@ -61,6 +61,15 @@ export default function Sidebar({ setView, currentView }) {
           </button>
 
           <button
+            onClick={() => handleSelect("service")}
+            className={`flex items-center gap-2 w-full text-left px-3 py-2 rounded hover:bg-blue-400 transition ${
+              currentView === "service" ? "bg-blue-700" : ""
+            }`}
+          >
+            <FaClipboardList /> Plan Enquiry
+          </button>
+
+          <button
             onClick={handleLogout}
             className="flex items-center gap-2 w-full text-left px-3 py-2 rounded hover:bg-blue-400 transition"
           >

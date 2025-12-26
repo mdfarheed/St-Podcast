@@ -1,6 +1,7 @@
 // ModalPlan.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { toast, ToastContainer } from "react-toastify";
 
 const backdropVariants = {
   hidden: { opacity: 0 },
@@ -25,143 +26,132 @@ const ModalPlan = ({ plan, onClose }) => {
     email: "",
     phone: "",
   });
-  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
+    // 🔥 ALL DATA IN ONE PLACE (IMPORTANT)
+    const payload = {
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      planName: plan?.name,
+      price: plan?.price, // ✅ NaN FIX
+    };
+
+    const promise = fetch("/api/serviceplan", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).then((res) => {
+      if (!res.ok) throw new Error("Failed");
+      return res.json();
+    });
+
+    toast.promise(promise, {
+      loading: "Sending plan...",
+      success: "Plan sent successfully!",
+      error: "Something went wrong. Try again!",
+    });
     try {
-      await fetch("https://your-backend-url.com/api/plans", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          planId: plan.id,
-          planName: plan.name,
-          price: plan.price,
-        }),
-      });
-      setForm({ name: "", email: "", phone: "" });
-      onClose();
-    } catch (err) {
-      console.error(err);
-      setLoading(false);
-    }
+      await promise;
+      setTimeout(() => {
+        onClose();
+      }, 2000);
+    } catch (err) {}
   };
 
   return (
-    <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      variants={backdropVariants}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      aria-modal="true"
-      role="dialog"
-    >
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        onClick={onClose}
-      />
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
 
-      {/* Modal card */}
       <motion.div
-        variants={modalVariants}
-        className="relative z-10 w-full max-w-md mx-4 rounded-3xl bg-slate-900/70 
+        className="fixed inset-0 z-50 flex items-center justify-center"
+        variants={backdropVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+      >
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+          onClick={onClose}
+        />
+
+        {/* Modal */}
+        <motion.div
+          variants={modalVariants}
+          className="relative z-10 w-full max-w-md mx-4 rounded-3xl bg-slate-900/70 
           border border-white/10 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.7)] 
           p-6 md:p-7 text-slate-50"
-      >
-        <button
-          onClick={onClose}
-          className="absolute right-4 top-3 text-slate-400 hover:text-white text-xl"
         >
-          ×
-        </button>
+          <button
+            onClick={onClose}
+            className="absolute right-4 top-3 text-slate-400 hover:text-white text-xl"
+          >
+            ×
+          </button>
 
-        <h3 className="text-lg font-bold mb-1">Choose Plan</h3>
-        <p className="text-xs text-slate-300 mb-4">
-          Fill your details to proceed with the plan.
-        </p>
+          <h3 className="text-lg font-bold mb-1">Choose Plan</h3>
+          <p className="text-xs text-slate-300 mb-4">
+            Fill your details to proceed with the plan.
+          </p>
 
-        {/* Selected plan summary */}
-        <div className="mb-5 rounded-2xl bg-white/5 border border-white/10 px-4 py-3 flex items-center justify-between">
-          <div>
-            <p className="text-sm font-semibold">{plan.name}</p>
-            <p className="text-[11px] text-slate-300">Plan ID: {plan.id}</p>
+          {/* Plan summary */}
+          <div className="mb-5 rounded-2xl bg-white/5 border border-white/10 px-4 py-3 flex justify-between">
+            <div>
+              <p className="text-sm font-semibold">{plan.name}</p>
+              <p className="text-[11px] text-slate-300">Plan ID: {plan.id}</p>
+            </div>
+            <p className="text-sm font-bold text-emerald-300">₹{plan.price}</p>
           </div>
-          <p className="text-sm font-bold text-emerald-300">{plan.price}</p>
-        </div>
 
-        {/* Form */}
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <div>
-            <label className="block text-xs font-medium text-slate-200 mb-1.5">
-              Full Name
-            </label>
+          {/* Form */}
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <input
               type="text"
               name="name"
               required
               value={form.name}
               onChange={handleChange}
-              className="w-full rounded-xl bg-slate-900/60 border border-white/15 
-                px-3 py-2 text-sm outline-none text-slate-50
-                focus:ring-2 focus:ring-emerald-400/70 focus:border-transparent"
-              placeholder="Enter your name"
+              placeholder="Full Name"
+              className="w-full rounded-xl bg-slate-900/60 border border-white/15 px-3 py-2 text-sm"
             />
-          </div>
 
-          <div>
-            <label className="block text-xs font-medium text-slate-200 mb-1.5">
-              Email
-            </label>
             <input
               type="email"
               name="email"
               required
               value={form.email}
               onChange={handleChange}
-              className="w-full rounded-xl bg-slate-900/60 border border-white/15 
-                px-3 py-2 text-sm outline-none text-slate-50
-                focus:ring-2 focus:ring-emerald-400/70 focus:border-transparent"
-              placeholder="you@example.com"
+              placeholder="Email"
+              className="w-full rounded-xl bg-slate-900/60 border border-white/15 px-3 py-2 text-sm"
             />
-          </div>
 
-          <div>
-            <label className="block text-xs font-medium text-slate-200 mb-1.5">
-              Phone
-            </label>
             <input
               type="tel"
               name="phone"
               required
               value={form.phone}
               onChange={handleChange}
-              className="w-full rounded-xl bg-slate-900/60 border border-white/15 
-                px-3 py-2 text-sm outline-none text-slate-50
-                focus:ring-2 focus:ring-emerald-400/70 focus:border-transparent"
-              placeholder="Enter phone number"
+              placeholder="Phone"
+              className="w-full rounded-xl bg-slate-900/60 border border-white/15 px-3 py-2 text-sm"
             />
-          </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="mt-2 w-full rounded-full bg-emerald-400 text-slate-900 
-              font-semibold text-sm py-2.5 shadow-lg shadow-emerald-500/30
-              hover:bg-emerald-300 transition disabled:opacity-60"
-          >
-            {loading ? "Submitting..." : "Submit Details"}
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="w-full rounded-full bg-emerald-400 text-slate-900 font-semibold py-2.5 hover:bg-emerald-300"
+            >
+              Submit Details
+            </button>
+          </form>
+        </motion.div>
       </motion.div>
-    </motion.div>
+      <ToastContainer />
+    </>
   );
 };
 
