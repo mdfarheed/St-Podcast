@@ -13,9 +13,9 @@ export default function HeroSection() {
         initial={{ opacity: 0, x: -40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7 }}
-        className="max-w-2xl mt-20 text-white z-20 pl-10 lg:pl-15 relative"
+        className="max-w-2xl mt-30 md:mt-10 lg:mt-20 text-white z-20 pl-10 lg:pl-15 relative"
       >
-        <h1 className="text-5xl lg:text-7xl font-extrabold leading-tight mb-6">
+        <h1 className="text-4xl md:text-7xl font-extrabold leading-tight mb-6">
           Your Brand.
           <br />
           Your Voice. Your
@@ -50,7 +50,7 @@ export default function HeroSection() {
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7 }}
-        className="absolute right-0 top-46 w-[850px] opacity-60 hidden md:block"
+        className="absolute right-0 top-46 w-[850px] opacity-60 hidden lg:block"
       >
         <img src="/heroImage.png" alt="Podcast" className="" />
       </motion.div>

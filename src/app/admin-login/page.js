@@ -31,22 +31,19 @@ const Page = () => {
       localStorage.setItem("corpToken", data.token);
 
       return data;
+      
     });
 
     toast.promise(loginPromise, {
       pending: "Logging in...",
-      success: {
-        render() {
-          router.push("/react-admin-pannel");
-          return "Login successful 🚀";
-        },
-      },
+      success: "Login successful 🚀",
       error: {
         render({ data }) {
           return data.message || "Invalid credentials ❌";
         },
       },
     });
+    router.push("/react-admin-pannel")
   };
 
   return (
