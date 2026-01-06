@@ -23,9 +23,9 @@ const AboutSection = () => {
           </h2>
 
           <p className="text-gray-300 text-lg md:text-[22px] leading-relaxed max-w-[460px]">
-            We are a full-service Corporate Video Podcast Studio, helping brands
+            We are a full-service Corporate Video Podcast Agency Providing Podcast as a Service (PAAS), helping brands
             share their expertise through high-quality storytelling. Our team
-            handles end-to-end production so your leadership team gets premium,
+            handles end-to-end production and execution so your leadership team gets premium,
             broadcast-grade content without any effort.
           </p>
         </motion.div>

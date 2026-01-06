@@ -44,14 +44,14 @@ const ContactSection = () => {
   };
 
   return (
-    <section className=" relative w-full py-20 px-5 md:px-16 overflow-hidden bg-white">
+    <section className=" relative w-full py-20 px-5 md:px-16 overflow-hidden bg-black">
       {/* BG IMAGE */}
       <div className="absolute inset-0">
         <Image
           src="/contactBg-Image.png"
           alt="contact background"
           fill
-          className="object-cover bg-black opacity-80"
+          className="object-cover bg-black opacity-40"
         />
       </div>
 
@@ -179,7 +179,9 @@ const ContactSection = () => {
               <div>
                 <p className="text-gray-700 font-semibold">Email Support</p>
                 <p className="text-black font-medium">
-                  contact@podleadstudios.com
+                  <a href="mailto:sales@corppodcast.com">
+                    sales@corppodcast.com
+                  </a>
                 </p>
               </div>
             </motion.div>
@@ -197,7 +199,9 @@ const ContactSection = () => {
               </div>
               <div>
                 <p className="text-gray-700 font-semibold">Phone Number</p>
-                <p className="text-black font-medium">91-XXXXXXXXXX</p>
+                <p className="text-black font-medium">
+                  <a href="tel:+919711752388">91-9711752388</a>
+                </p>
               </div>
             </motion.div>
           </div>
