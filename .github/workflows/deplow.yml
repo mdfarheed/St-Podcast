@@ -1,0 +1,28 @@
+name: Deploy Next.js to Contabo
+
+on:
+  push:
+    branches: [ main ] # Jab aap main branch me push karenge
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd /var/www/my-next-app
+            git pull origin main
+            npm install
+            npm run build
+            # Project ko port 3001 par chalane ke liye
+            pm2 delete next-project || true
+            pm2 start npm --name "next-project" -- start -- -p 3001
+            pm2 save
